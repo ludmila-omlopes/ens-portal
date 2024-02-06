@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "pwa-chrome",
+        "request": "launch",
+        "name": "Launch Chrome against localhost with /ens",
+        "url": "http://localhost:3000/ens",
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMaps": true,
+        "breakOnLoad": true,
+        "skipFiles": [
+          "node_modules/**"
+        ]
+      }
+    ]
+  }
+  

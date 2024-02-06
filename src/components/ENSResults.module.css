@@ -1,0 +1,32 @@
+/* Container for the entire results list */
+.ensResultsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Space between cards */
+  justify-content: center; /* Center cards in the container */
+  padding: 20px; /* Padding around the entire container */
+}
+
+/* Individual result card */
+.ensResultCard {
+  border: 1px solid #e0e0e0; /* Light grey border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 15px; /* Padding inside each card */
+  width: 100%; /* Full width on small screens */
+  max-width: 320px; /* Maximum width to ensure cards don't get too wide */
+  background-color: #fff; /* White background */
+}
+
+/* Styling for domain name */
+.domainName {
+  color: #1976d2; /* Slightly darker blue for emphasis */
+  font-weight: bold; /* Make domain name bold */
+  margin-bottom: 8px; /* Space below the domain name */
+}
+
+/* Styling for expiry date */
+.expiryDate {
+  color: #757575; /* Darker grey for the expiry date */
+  font-size: 0.875rem; /* Slightly smaller font size */
+}

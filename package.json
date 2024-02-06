@@ -1,5 +1,5 @@
 {
-  "name": "quiz-frame",
+  "name": "social-embed",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.9.2",
     "@glideapps/glide-data-grid": "^6.0.1",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
@@ -17,6 +18,7 @@
     "@upstash/redis": "^1.28.2",
     "@vercel/og": "^0.6.2",
     "body-parser": "^1.20.2",
+    "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "marked": "^11.2.0",
     "next": "14.1.0",
