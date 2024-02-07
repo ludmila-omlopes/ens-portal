@@ -30,7 +30,7 @@ const ENSPage = () => {
       <Head>
         <title>ENS Lookup Portal</title>
         <meta property="hey:portal" content="v1.0.0" />
-        <meta property="hey:portal:image" content="https://example.com/image.png" />
+        <meta property="hey:portal:image" content="https://www.esports.net/br/wp-content/uploads/sites/3/2022/11/apostas-com-ethereum-2022.jpg" />
         <meta property="hey:portal:post_url" content="/api/onclick" />
         <meta property="hey:portal:button:1" content="Search" />
         <meta property="hey:portal:button:1:type" content="submit" />
