@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_ENS_DETAILS } from '../graphql/queries';
-import  ENSForm  from '../components/ENSForm';
+import ENSForm from '../components/ENSForm';
 import ENSResults from '../components/ENSResults';
+import Head from 'next/head'; // Import Head for setting meta tags
 
 const ENSPage = () => {
   const [ensDetails, setEnsDetails] = useState([]);
@@ -10,17 +11,15 @@ const ENSPage = () => {
 
   const [getENSDetails, { loading, error, data, called }] = useLazyQuery(GET_ENS_DETAILS, {
     onCompleted: (data) => {
-      // Assuming data.domains is the correct path based on your updated query
       setEnsDetails(data.domains ?? []);
     },
     onError: (error) => {
       setErrorMessage(error.message);
-    }
+    },
   });
 
   const handleAddressSubmit = (address: string) => {
-    setErrorMessage(''); // Clear any existing error messages
-    // Transform the address to lowercase before submitting
+    setErrorMessage('');
     getENSDetails({
       variables: { address: address.toLowerCase() },
     });
@@ -28,6 +27,15 @@ const ENSPage = () => {
 
   return (
     <div>
+      <Head>
+        <title>ENS Lookup Portal</title>
+        <meta property="hey:portal" content="v1.0.0" />
+        <meta property="hey:portal:image" content="https://example.com/image.png" />
+        <meta property="hey:portal:post_url" content="/api/onclick" />
+        <meta property="hey:portal:button:1" content="Search" />
+        <meta property="hey:portal:button:1:type" content="submit" />
+        {/* Add additional buttons and meta tags as required */}
+      </Head>
       <ENSForm onAddressSubmit={handleAddressSubmit} />
       {loading && <p>Loading...</p>}
       {error && <p>Error: {errorMessage}</p>}
