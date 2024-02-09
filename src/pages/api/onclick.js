@@ -7,6 +7,11 @@ export default async function handler(req, res) {
     }
 
     try {
+
+        console.log('Received request:', req.method, req.url);
+        console.log('Request headers:', req.headers);
+        console.log('Request body:', req.body);
+
         // Extract either trustedData or simulate receiving an address in development
         const body = req.body;
         let address;
@@ -28,6 +33,8 @@ export default async function handler(req, res) {
 
         // Construct the URL for redirection
         const redirectUrl = `https://ens-portal.vercel.app/heyportal?address=${encodeURIComponent(address)}`;
+
+        console.log('Trusted data received:', trustedData);
 
         // Respond with a redirect, passing the address as a query parameter
         res.writeHead(303, { Location: redirectUrl }).end();
