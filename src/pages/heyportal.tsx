@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 const HeyPortalPage = () => {
@@ -7,41 +7,23 @@ const HeyPortalPage = () => {
     // For local testing, set a constant address. Remove or modify for production.
     const DEV_ADDRESS = "0xC3b8BBD76c78a0dFAf47b4454472DB35cEBD1A24"; // Example address
     const router = useRouter();
-    //const { address } = router.query; // Access the address query parameter
-
     const [userAddress, setUserAddress] = useState('');
 
+    //If outside Hey
     const handleShowAddress = async () => {
-        // Check if we're in development mode. If so, use the DEV_ADDRESS directly.
-        if (process.env.NODE_ENV === 'development') {
-          setUserAddress(DEV_ADDRESS);
-        } else {
-          // In production, attempt to fetch the user address.
-          // Note: This fetch logic is for demonstration. You'll need to adjust it according to your backend API.
-          try {
-            const response = await fetch('/api/onclick', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-
-              }),
-            });
-    
-            if (response.ok) {
-              const { address } = await response.json();
-              setUserAddress(address || "User is not authenticated."); // Use the fetched address or show a fallback message
-            } else {
-              console.error('Failed to fetch user address');
-              setUserAddress("Error fetching address.");
-            }
-          } catch (error) {
-            console.error('Error during fetch:', error);
-            setUserAddress("Error fetching address.");
-          }
-        }
+        setUserAddress(DEV_ADDRESS);
       };
+
+      useEffect(() => {
+        // Check for the 'address' query parameter from the URL
+        const queryAddress = router.query.address;
+
+        if (queryAddress) {
+            // If the 'address' query parameter exists, use it as the user address
+            setUserAddress(queryAddress as string);
+        }
+        // Add router.query to the dependency array to ensure the effect runs when query parameters change
+    }, [router.query]);
     
 
   return (
