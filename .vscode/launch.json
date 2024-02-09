@@ -4,8 +4,8 @@
       {
         "type": "pwa-chrome",
         "request": "launch",
-        "name": "Launch Chrome against localhost with /ens",
-        "url": "http://localhost:3000/ens",
+        "name": "Launch Chrome against localhost with /heyportal",
+        "url": "http://localhost:3000/heyportal",
         "webRoot": "${workspaceFolder}/src",
         "sourceMaps": true,
         "breakOnLoad": true,
