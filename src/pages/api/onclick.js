@@ -1,24 +1,19 @@
+// pages/api/onclick.js
+
 export default async function handler(req, res) {
-    // Ensure we're dealing with a POST request
-    if (req.method !== 'POST') {
+    if (req.method === 'POST') {
+        // Extract the trustedData from the request body
+        const { trustedData } = req.body;
+
+        // Extract the user's address from the trustedData
+        const address = trustedData?.address;
+
+        // Redirect back to your Hey Portal page with the address as a query parameter
+        // Adjust the URL to your specific page that should display the address
+        res.redirect(303, `/heyportal?address=${address}`);
+    } else {
+        // Handle any non-POST requests
         res.setHeader('Allow', ['POST']);
         res.status(405).end('Method Not Allowed');
-        return;
-    }
-
-    try {
-        // Assuming the body parser middleware has already processed the incoming request
-        // And the buttonIndex signifies which button was pressed in the Hey Portal
-        const { buttonIndex } = req.body;
-
-        // Here, you would add logic based on the buttonIndex to perform specific actions
-        // For demonstration, let's log the buttonIndex and send a simple response
-        console.log(`Button ${buttonIndex} was pressed.`);
-
-        // Respond with a simple JSON message
-        res.status(200).json({ message: `Button ${buttonIndex} interaction received.` });
-    } catch (error) {
-        console.error('Error handling interaction:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
     }
 }

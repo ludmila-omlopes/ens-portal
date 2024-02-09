@@ -1,7 +1,10 @@
-// pages/heyportal.tsx
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 
 const HeyPortalPage = () => {
+    const router = useRouter();
+    const { address } = router.query; // Access the address query parameter
+
   return (
     <>
       <Head>
@@ -17,7 +20,8 @@ const HeyPortalPage = () => {
       </Head>
       <main>
         <h1>Welcome to the Hey Portal Example</h1>
-        <p>This is a basic example page designed to meet the minimum requirements for a Hey Portal.</p>
+        {/* Conditionally display the address if it's present in the query parameters */}
+        {address && <p>Your address is: {address}</p>}
         <img className="max-w-xl h-auto" src="https://zizzamia.xyz/park-3.png" />
       </main>
     </>
