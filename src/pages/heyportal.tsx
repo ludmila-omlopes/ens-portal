@@ -25,7 +25,7 @@ const HeyPortalPage = () => {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                
+
               }),
             });
     
@@ -52,7 +52,7 @@ const HeyPortalPage = () => {
         <meta property="og:image" content="https://zizzamia.xyz/park-3.png" />
         <meta property="hey:portal" content="v1.0.0" />
         <meta property="hey:portal:image" content="https://zizzamia.xyz/park-3.png" />
-        <meta property="hey:portal:post_url" content="https://example.com/api/heyportal" />
+        <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
         <meta property="hey:portal:button:1" content="Show Address" />
         <meta property="hey:portal:button:1:type" content="submit" />
         {/* Add additional buttons as needed */}
