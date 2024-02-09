@@ -1,5 +1,3 @@
-// pages/api/interactionHandler.js
-
 export default async function handler(req, res) {
     // Ensure we're dealing with a POST request
     if (req.method !== 'POST') {

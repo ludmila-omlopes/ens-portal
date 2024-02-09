@@ -29,18 +29,20 @@ const ENSPage = () => {
     <div>
       <Head>
         <title>ENS Lookup Portal</title>
+        <meta property="og:title" content="Frame" />
+        <meta property="og:image" content="https://www.esports.net/br/wp-content/uploads/sites/3/2022/11/apostas-com-ethereum-2022.jpg"/>
         <meta property="hey:portal" content="v1.0.0" />
         <meta property="hey:portal:image" content="https://www.esports.net/br/wp-content/uploads/sites/3/2022/11/apostas-com-ethereum-2022.jpg" />
-        <meta property="hey:portal:post_url" content="/api/onclick" />
+        <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
         <meta property="hey:portal:button:1" content="Search" />
         <meta property="hey:portal:button:1:type" content="submit" />
         {/* Add additional buttons and meta tags as required */}
       </Head>
-      <ENSForm onAddressSubmit={handleAddressSubmit} />
+       <ENSForm onAddressSubmit={handleAddressSubmit} />
       {loading && <p>Loading...</p>}
       {error && <p>Error: {errorMessage}</p>}
       {called && !loading && data && data.domains?.length > 0 ? (
-        <ENSResults ensDetails={data.domains} />
+       <ENSResults ensDetails={data.domains} />
       ) : (
         called && !loading && <p>No ENS details found for the provided address.</p>
       )}
