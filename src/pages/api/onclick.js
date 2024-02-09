@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
         // Redirect back to your Hey Portal page with the address as a query parameter
         // Adjust the URL to your specific page that should display the address
-        res.status(200).json({ address: userAddress });
+        res.status(200).json({ address: address });
     } else {
         // Handle any non-POST requests
         res.setHeader('Allow', ['POST']);
