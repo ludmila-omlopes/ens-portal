@@ -21,6 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Extract the user's Ethereum address from the trustedData
     const { address } = trustedData;
+    // Construct the URL for the placeholder image service
+    const imageUrl = `https://via.placeholder.com/468x60?text=${encodeURIComponent(`Your Ethereum Address: ${address}`)}`;
 
     // Generate dynamic HTML content with Open Graph meta tags based on the address
     const htmlContent = `<!DOCTYPE html>
@@ -29,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         <title>User Address</title>
         <meta property="og:title" content="Your Ethereum Address" />
         <meta property="hey:portal" content="v1.0.0" />
-        <meta property="hey:portal:image" content="https://zizzamia.xyz/park-3.png" />
+        <meta property="hey:portal:image" content=${imageUrl} />
         <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
         <meta property="hey:portal:button:1" content="Show Address" />
         <meta property="hey:portal:button:1:type" content="submit" />
