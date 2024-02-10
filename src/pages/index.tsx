@@ -1,59 +1,69 @@
-export default function Example() {
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
+
+const HeyPortalPage = () => {
+
+    // For local testing, set a constant address. Remove or modify for production.
+    const DEV_ADDRESS = "0xC3b8BBD76c78a0dFAf47b4454472DB35cEBD1A24"; // Example address
+    const router = useRouter();
+    const [userAddress, setUserAddress] = useState('');
+
+    //If outside Hey
+    const handleShowAddress = async () => {
+        setUserAddress(DEV_ADDRESS);
+      };
+
+      useEffect(() => {
+        // Check for the 'address' query parameter from the URL
+        const queryAddress = router.query.address;
+
+        if (queryAddress) {
+            // If the 'address' query parameter exists, use it as the user address
+            setUserAddress(queryAddress as string);
+        }
+        // Add router.query to the dependency array to ensure the effect runs when query parameters change
+    }, [router.query]);
+    
+
   return (
-    <div className="bg-black min-h-screen">
-      <div className="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
-        <div className="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
-          <svg
-            viewBox="0 0 1024 1024"
-            className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
-            aria-hidden="true"
-          >
-            <circle
-              cx={512}
-              cy={512}
-              r={512}
-              fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
-              fillOpacity="0.7"
-            />
-            <defs>
-              <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
-                <stop stopColor="#7775D6" />
-                <stop offset={1} stopColor="#E935C1" />
-              </radialGradient>
-            </defs>
-          </svg>
-          <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Engage your audience
-              <br />
-              with a fun quiz
-            </h2>
-            <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-              <a
-                href="/new"
-                className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Create Quiz
-              </a>
-              <a
-                href="https://warpcast.com/w1nt3r/0x89ca1588"
-                className="text-sm font-semibold leading-6 text-white"
-              >
-                View Demo <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-          <div className="relative mt-16 h-80 lg:mt-8">
-            <img
-              className="absolute left-0 top-0 w-[38rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
-              src="/demo.jpg"
-              alt="App screenshot"
-              width={628}
-              height={606}
-            />
-          </div>
-        </div>
+    <>
+      <Head>
+        <title>Hey Portal Example</title>
+        <meta property="og:title" content="Hey Portal Example" />
+        <meta property="og:image" content="https://zizzamia.xyz/park-3.png" />
+        <meta property="hey:portal" content="v1.0.0" />
+        <meta property="hey:portal:image" content="https://zizzamia.xyz/park-3.png" />
+        <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
+        <meta property="hey:portal:button:1" content="Show Address" />
+        <meta property="hey:portal:button:1:type" content="submit" />
+        {/* Add additional buttons as needed */}
+      </Head>
+      <div className="container">
+        <h1>Welcome to the Hey Portal Example</h1>
+        <img className="max-w-xl h-auto" src="https://zizzamia.xyz/park-3.png" />
+        <button onClick={handleShowAddress} className="show-address-button">
+          Show My Address
+        </button>
+        {userAddress && <p>Your address is: {userAddress}</p>}
       </div>
-    </div>
+      <style jsx>{`
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+        .show-address-button {
+          margin-top: 20px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      `}</style>
+    </>
   );
-}
+};
+
+export default HeyPortalPage;
