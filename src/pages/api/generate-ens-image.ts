@@ -90,22 +90,18 @@ async function generateENSImage(ensDetails: { name: string, expiryDate: string }
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  let { address } = req.query;  //try getting the address from query parameter
+  let { queryAddress } = req.query;  //try getting the address from query parameter
   const { trustedData } = req.body; //try getting the address from Hey trusted data
+  let address = ""; 
 
-  if (!address || typeof address !== 'string') {
-    if (!trustedData || !trustedData.address) {
-      res.status(400).json({ error: 'Missing or invalid address.' });
+  if (!trustedData && typeof queryAddress == 'string')
+    address = queryAddress
+  else if (!queryAddress && typeof trustedData.address == 'string')  
+    address = trustedData.address
+  else {
+      res.status(400).json({ error: 'Invalid address.' });
       return;
-    } 
-    else if(typeof trustedData.address !== 'string') {
-      res.status(400).json({ error: 'Invalid address' });
-      return;
-    }  
-    else {
-      address = trustedData;
     }
-  }  
 
   // Convert the address to lowercase
   address = address.toLowerCase();
