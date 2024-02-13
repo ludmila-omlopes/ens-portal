@@ -1,54 +1,80 @@
-import Head from 'next/head';
-import React from 'react';
 import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 
-const IndexPage = () => {
-  const router = useRouter();
+const HeyPortalPage = () => {
+    const router = useRouter();
+    const [ensListImageUrl, setEnsListImageUrl] = useState<string | null>(null);
 
-  // Placeholder function to demonstrate interaction
-  // You would replace this with your actual logic to fetch and display ENS details or navigate further
-  const handleShowENSList = async () => {
-    console.log('Show ENS List logic goes here');
-    // Logic to fetch and display ENS details
-  };
+    // This function is called when the button is clicked or when the Hey Portal button action is triggered.
+    const handleShowENSList = async () => {
+        // Placeholder Ethereum address for demonstration
+        const address = "0xC3b8BBD76c78a0dFAf47b4454472DB35cEBD1A24";
+    
+        // Determine the base URL based on the environment
+        const baseUrl = process.env.NODE_ENV === 'development' 
+            ? 'http://localhost:3000' // Use your local development port if different
+            : 'https://ens-portal.vercel.app';
+    
+        // Construct the URL to your API route
+        const imageUrl = `${baseUrl}/api/generate-ens-image?address=${encodeURIComponent(address)}&timestamp=${Date.now()}`;
 
-  return (
-    <>
-      <Head>
-        <title>ENS Details Portal</title>
-        <meta property="og:title" content="ENS Details Portal" />
-        <meta property="og:image" content="https://example.com/path/to/your/dynamic/image.png" />
-        <meta property="hey:portal" content="v1.0.0" />
-        <meta property="hey:portal:image" content="https://example.com/path/to/your/dynamic/image.png" />
-        <meta property="hey:portal:post_url" content="https://your-domain.com/api/your-endpoint" />
-        <meta property="hey:portal:button:1" content="Show ENS Details" />
-        <meta property="hey:portal:button:1:type" content="submit" />
-        {/* Add additional meta tags as needed */}
-      </Head>
-      <div className="container">
-        <h1>Welcome to the ENS Details Portal</h1>
-        <button onClick={handleShowENSList} className="ens-details-button">
-          Show My ENS List
-        </button>
-        {/* Render ENS details or additional content here */}
-      </div>
-      <style jsx>{`
-        .container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
+        setEnsListImageUrl(imageUrl);
+    };
+    
+
+    // Optionally, react to the address query parameter if present (useful outside Hey)
+    useEffect(() => {
+        const queryAddress = router.query.address as string | undefined;
+        if (queryAddress) {
+            handleShowENSList();
         }
-        .ens-details-button {
-          margin-top: 20px;
-          padding: 10px 20px;
-          font-size: 16px;
-          cursor: pointer;
-        }
-      `}</style>
-    </>
-  );
+    }, [router.query]);
+
+    return (
+        <>
+            <Head>
+                <title>Hey Portal Example</title>
+                <meta property="og:title" content="Hey Portal Example" />
+                <meta property="og:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
+                <meta property="hey:portal" content="v1.0.0" />
+                <meta property="hey:portal:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
+                <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
+                <meta property="hey:portal:button:1" content="Show My ENS List 3" />
+                <meta property="hey:portal:button:1:type" content="submit" />
+            </Head>
+            <div className="container">
+                <h1>Welcome to the Hey Portal Example</h1>
+                <img className="placeholder-image" src="https://zizzamia.xyz/park-3.png" alt="Placeholder" />
+                <button onClick={handleShowENSList} className="show-ens-list-button">
+                    Show My ENS List 2
+                </button>
+                {ensListImageUrl && <img className="ens-list-image" src={ensListImageUrl} alt="ENS List" />}
+            </div>
+            <style jsx>{`
+                .container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                }
+                .show-ens-list-button, .placeholder-image {
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+                .ens-list-image {
+                    max-width: 90%;
+                    height: auto;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                    margin-top: 20px;
+                }
+            `}</style>
+        </>
+    );
 };
 
-export default IndexPage;
+export default HeyPortalPage;
