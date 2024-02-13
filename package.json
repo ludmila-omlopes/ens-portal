@@ -17,6 +17,7 @@
     "@upstash/redis": "^1.28.2",
     "@vercel/og": "^0.6.2",
     "body-parser": "^1.20.2",
+    "date-fns": "^3.3.1",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "marked": "^11.2.0",

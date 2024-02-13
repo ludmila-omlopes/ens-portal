@@ -1,17 +1,28 @@
 {
     "version": "0.2.0",
     "configurations": [
+    
       {
         "type": "pwa-chrome",
         "request": "launch",
-        "name": "Launch Chrome against localhost with /heyportal",
-        "url": "http://localhost:3000/heyportal",
+        "name": "Launch Chrome against localhost with /index",
+        "url": "http://localhost:3000",
         "webRoot": "${workspaceFolder}/src",
         "sourceMaps": true,
         "breakOnLoad": true,
         "skipFiles": [
           "node_modules/**"
         ]
+      },
+
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "skipFiles": ["<node_internals>/**"],
+        "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+        "args": ["dev"],
+        "console": "integratedTerminal"
       }
     ]
   }

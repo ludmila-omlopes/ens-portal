@@ -8,14 +8,19 @@ const HeyPortalPage = () => {
 
     // This function is called when the button is clicked or when the Hey Portal button action is triggered.
     const handleShowENSList = async () => {
-        // Here, you might want to dynamically fetch the user's Ethereum address in a real-world scenario.
-        // For demonstration, we're using a placeholder Ethereum address.
+        // Placeholder Ethereum address for demonstration
         const address = "0xC3b8BBD76c78a0dFAf47b4454472DB35cEBD1A24";
-
-        // Construct the URL to your API route that generates the ENS list image.
-        const imageUrl = `https://ens-portal.vercel.app/api/generate-ens-image?address=${encodeURIComponent(address)}`;
+    
+        // Determine the base URL based on the environment
+        const baseUrl = process.env.NODE_ENV === 'development' 
+            ? 'http://localhost:3000' // Use your local development port if different
+            : 'https://ens-portal.vercel.app';
+    
+        // Construct the URL to your API route
+        const imageUrl = `${baseUrl}/api/generate-ens-image?address=${encodeURIComponent(address)}`;
         setEnsListImageUrl(imageUrl);
     };
+    
 
     // Optionally, react to the address query parameter if present (useful outside Hey)
     useEffect(() => {
@@ -30,7 +35,7 @@ const HeyPortalPage = () => {
             <Head>
                 <title>Hey Portal Example</title>
                 <meta property="og:title" content="Hey Portal Example" />
-                <meta property="og:image" content="https://zizzamia.xyz/park-3.png" />
+                <meta property="og:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
                 <meta property="hey:portal" content="v1.0.0" />
                 <meta property="hey:portal:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
                 <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/generate-ens-image" />
