@@ -25,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",
+    "sharp": "^0.33.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
