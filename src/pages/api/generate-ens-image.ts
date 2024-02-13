@@ -28,7 +28,7 @@ const GET_ENS_DETAILS = gql`
   }
 `;
 
-async function saveImageAndGetUrl(buffer) {
+async function saveImageAndGetUrl(buffer: Buffer) {
   const imageName = `ens-list-${Date.now()}.png`;
   const imagePath = path.join(process.cwd(), 'public', 'generated', imageName);
   await fs.writeFile(imagePath, buffer);
