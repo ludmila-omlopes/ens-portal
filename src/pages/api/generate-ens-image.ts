@@ -95,12 +95,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (!address || typeof address !== 'string') {
     if (!trustedData || !trustedData.address) {
-    res.status(400).json({ error: 'Missing or invalid address.' });
-    return;
+      res.status(400).json({ error: 'Missing or invalid address.' });
+      return;
     } 
+    else if(typeof trustedData.address !== 'string') {
+      res.status(400).json({ error: 'Invalid address' });
+      return;
+    }  
     else {
       address = trustedData;
-    }  
+    }
   }  
 
   // Convert the address to lowercase
