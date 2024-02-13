@@ -90,12 +90,18 @@ async function generateENSImage(ensDetails: { name: string, expiryDate: string }
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  let { address } = req.query;
+  let { address } = req.query;  //try getting the address from query parameter
+  const { trustedData } = req.body; //try getting the address from Hey trusted data
 
   if (!address || typeof address !== 'string') {
-    res.status(400).json({ error: 'Address query parameter is required and must be a string.' });
+    if (!trustedData || !trustedData.address) {
+    res.status(400).json({ error: 'Missing or invalid address.' });
     return;
-  }
+    } 
+    else {
+      address = trustedData;
+    }  
+  }  
 
   // Convert the address to lowercase
   address = address.toLowerCase();
