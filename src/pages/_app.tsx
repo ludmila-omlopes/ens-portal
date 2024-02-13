@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import "@glideapps/glide-data-grid/dist/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ApolloProvider } from '@apollo/client';
 import client from '../lib/apolloClient'; // Adjust the path as needed
