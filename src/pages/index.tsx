@@ -17,7 +17,8 @@ const HeyPortalPage = () => {
             : 'https://ens-portal.vercel.app';
     
         // Construct the URL to your API route
-        const imageUrl = `${baseUrl}/api/generate-ens-image?address=${encodeURIComponent(address)}`;
+        const imageUrl = `${baseUrl}/api/generate-ens-image?address=${encodeURIComponent(address)}&timestamp=${Date.now()}`;
+
         setEnsListImageUrl(imageUrl);
     };
     
