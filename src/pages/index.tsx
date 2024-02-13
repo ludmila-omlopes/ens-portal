@@ -46,7 +46,7 @@ const HeyPortalPage = () => {
                 <h1>Welcome to the Hey Portal Example</h1>
                 <img className="placeholder-image" src="https://zizzamia.xyz/park-3.png" alt="Placeholder" />
                 <button onClick={handleShowENSList} className="show-ens-list-button">
-                    Show My ENS List
+                    Show My ENS List 2
                 </button>
                 {ensListImageUrl && <img className="ens-list-image" src={ensListImageUrl} alt="ENS List" />}
             </div>
