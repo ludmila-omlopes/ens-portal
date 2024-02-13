@@ -260,3 +260,12 @@ function SavePopup({ questions }: { questions: Question[] }) {
   );
 }
 */
+const New = () => {
+return (
+  <>
+  </>
+);
+
+};
+
+export default New;
