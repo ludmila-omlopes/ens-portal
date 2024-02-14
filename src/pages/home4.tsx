@@ -36,16 +36,16 @@ const HeyPortalPage = () => {
             <Head>
                 <title>Hey Portal Example</title>
                 <meta property="og:title" content="Hey Portal Example" />
-                <meta property="og:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
+                <meta property="og:image" content={ensListImageUrl || "https://gateway.pinata.cloud/ipfs/QmbfB9ssCe1qJWZqE2nXkoHuHpePJG1ffy93d2H8GkQt8a"} />
                 <meta property="hey:portal" content="v1.0.0" />
-                <meta property="hey:portal:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
+                <meta property="hey:portal:image" content={ensListImageUrl || "https://gateway.pinata.cloud/ipfs/QmbfB9ssCe1qJWZqE2nXkoHuHpePJG1ffy93d2H8GkQt8a"} />
                 <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/generate-ens-image" />
                 <meta property="hey:portal:button:1" content="Show My ENS List 4" />
                 <meta property="hey:portal:button:1:type" content="submit" />
             </Head>
             <div className="container">
                 <h1>Welcome to the Hey Portal Example</h1>
-                <img className="placeholder-image" src="https://zizzamia.xyz/park-3.png" alt="Placeholder" />
+                <img className="placeholder-image" src="https://gateway.pinata.cloud/ipfs/QmbfB9ssCe1qJWZqE2nXkoHuHpePJG1ffy93d2H8GkQt8a" alt="Placeholder" />
                 <button onClick={handleShowENSList} className="show-ens-list-button">
                     Show My ENS List 2
                 </button>
