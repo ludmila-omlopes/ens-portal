@@ -8,21 +8,27 @@ const pinataApiKey = process.env.PINATA_API_KEY;
 const pinataSecretApiKey = process.env.PINATA_SECRET_API_KEY;
 
 export async function uploadToIPFS(buffer: Buffer): Promise<string> {
-
-    const readableStream = new Readable();
-    readableStream.push(buffer); // Push the buffer to the stream
-    readableStream.push(null); // Indicate the end of the stream
-
     const formData = new FormData();
-    formData.append('file', readableStream); // Use the stream here
+    const stream = Readable.from(buffer); // Convert the buffer to a stream
+    formData.append('file', stream, {
+        filename: `ens-image-${Date.now()}.png`,
+        contentType: 'image/png',
+    });
+
+    // Optionally, add metadata or options here
+    formData.append('pinataMetadata', JSON.stringify({
+        name: `ENS-Image-${Date.now()}`
+    }));
+    formData.append('pinataOptions', JSON.stringify({
+        cidVersion: 1
+    }));
 
     try {
         const response = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
-            maxBodyLength: Infinity, // This might be needed depending on the size of your uploads
             headers: {
-                ...formData.getHeaders(), // Spread formData headers
-                pinata_api_key: pinataApiKey,
-                pinata_secret_api_key: pinataSecretApiKey,
+                ...formData.getHeaders(),
+                pinata_api_key: pinataApiKey, // Note: Adjust according to the correct method of authentication
+                pinata_secret_api_key: pinataSecretApiKey, // Pinata might require Bearer token or other auth methods
             },
         });
         const ipfsHash = response.data.IpfsHash;

@@ -94,12 +94,12 @@ async function generateENSImage(ensDetails: { name: string, expiryDate: string }
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  let { queryAddress } = req.query;  //try getting the address from query parameter
+  let queryAddress = req.query;  //try getting the address from query parameter
   const { trustedData } = req.body; //try getting the address from Hey trusted data
   let address = ""; 
 
-  if (!trustedData && typeof queryAddress == 'string')
-    address = queryAddress
+  if (!trustedData && queryAddress && typeof queryAddress.address == 'string')
+    address = queryAddress.address
   else if (!queryAddress && trustedData && typeof trustedData.address == 'string')  
     address = trustedData.address
   else {
