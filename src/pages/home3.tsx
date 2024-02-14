@@ -40,7 +40,7 @@ const HeyPortalPage = () => {
                 <meta property="hey:portal" content="v1.0.0" />
                 <meta property="hey:portal:image" content={ensListImageUrl || "https://zizzamia.xyz/park-3.png"} />
                 <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/generate-ens-image" />
-                <meta property="hey:portal:button:1" content="Show My ENS List 3" />
+                <meta property="hey:portal:button:1" content="Show My ENS List 4" />
                 <meta property="hey:portal:button:1:type" content="submit" />
             </Head>
             <div className="container">

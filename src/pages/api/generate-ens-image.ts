@@ -94,23 +94,33 @@ async function generateENSImage(ensDetails: { name: string, expiryDate: string }
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  let queryAddress = req.query;  //try getting the address from query parameter
-  const { trustedData } = req.body; //try getting the address from Hey trusted data
+  // Enhanced logging for debugging
+  console.log('Received Request Query:', JSON.stringify(req.query));
+  console.log('Received Request Body:', JSON.stringify(req.body));
+
+  let queryAddress = req.query;  // Attempt to get the address from query parameter
+  const { trustedData } = req.body; // Attempt to get the address from Hey trusted data
   let address = ""; 
 
-  if (!trustedData && queryAddress && typeof queryAddress.address == 'string')
-    address = queryAddress.address
-  else if (!queryAddress && trustedData && typeof trustedData.address == 'string')  
-    address = trustedData.address
+  // Check if address is in query parameters
+  if (queryAddress && typeof queryAddress.address === 'string') {
+    address = queryAddress.address;
+    console.log('Address found in query parameters:', address);
+  } 
+  // Check if address is in trustedData from the request body
+  else if (trustedData && typeof trustedData.address === 'string') {
+    address = trustedData.address;
+    console.log('Address found in trustedData:', address);
+  }
   else {
-      res.status(400).json({ error: 'Invalid address.' });
-      return;
-    }
+    console.log('Invalid or missing address in both query parameters and request body.');
+    res.status(400).json({ error: 'Invalid address.' });
+    return;
+  }
 
-  // Convert the address to lowercase
+  // Proceed with lowercase address
   address = address.toLowerCase();
-  console.log('Determined Address:', address);
-  console.log('Trusted Data:', trustedData.address);
+  console.log('Using Address:', address);
 
   try {
     const { data } = await client.query({
