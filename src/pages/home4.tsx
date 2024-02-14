@@ -40,7 +40,7 @@ const HeyPortalPage = () => {
                 <meta property="hey:portal" content="v1.0.0" />
                 <meta property="hey:portal:image" content={ensListImageUrl || "https://gateway.pinata.cloud/ipfs/QmbfB9ssCe1qJWZqE2nXkoHuHpePJG1ffy93d2H8GkQt8a"} />
                 <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/generate-ens-image" />
-                <meta property="hey:portal:button:1" content="Show My ENS List 4" />
+                <meta property="hey:portal:button:1" content="Show My ENS List" />
                 <meta property="hey:portal:button:1:type" content="submit" />
             </Head>
             <div className="container">

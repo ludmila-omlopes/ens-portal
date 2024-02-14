@@ -146,8 +146,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           <meta property="og:image" content="${ipfsImageUrl}" />
           <meta property="hey:portal" content="v1.0.0" />
           <meta property="hey:portal:image" content="${ipfsImageUrl}" />
-          <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
-          <meta property="hey:portal:button:1" content="Show My ENS List 3" />
+          <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/reload" />
+          <meta property="hey:portal:button:1" content="Reload!" />
           <meta property="hey:portal:button:1:type" content="submit" />
         </head>
         <body>
