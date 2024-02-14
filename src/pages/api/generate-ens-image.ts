@@ -109,6 +109,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // Convert the address to lowercase
   address = address.toLowerCase();
+  console.log('Determined Address:', address);
+  console.log('Trusted Data:', trustedData.address);
 
   try {
     const { data } = await client.query({
