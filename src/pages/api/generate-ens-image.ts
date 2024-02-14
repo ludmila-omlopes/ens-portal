@@ -4,6 +4,8 @@ import sharp from 'sharp';
 import { format, subDays } from 'date-fns';
 import path from 'path';
 import { promises as fs } from 'fs';
+import { uploadToIPFS } from '../../lib/uploadToIPFS';
+
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -29,8 +31,10 @@ const GET_ENS_DETAILS = gql`
 `;
 
 async function saveImageAndGetUrl(buffer: Buffer) {
+  const directoryPath = '/tmp';
   const imageName = `ens-list-${Date.now()}.png`;
-  const imagePath = path.join(process.cwd(), 'public', 'generated', imageName);
+  const imagePath = path.join(directoryPath, imageName);
+
   await fs.writeFile(imagePath, buffer);
   return `/generated/${imageName}`; // URL accessible publicly
 }
@@ -96,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (!trustedData && typeof queryAddress == 'string')
     address = queryAddress
-  else if (!queryAddress && typeof trustedData.address == 'string')  
+  else if (!queryAddress && trustedData && typeof trustedData.address == 'string')  
     address = trustedData.address
   else {
       res.status(400).json({ error: 'Invalid address.' });
@@ -118,7 +122,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         expiryDate: subDays(new Date(parseInt(domain.expiryDate) * 1000), 90).toISOString().slice(0, 10)
       })));
 
-      const ensListImageUrl = await saveImageAndGetUrl(imageBuffer); // Save image and get URL
+      // Upload the generated image to IPFS
+    const ipfsImageUrl = await uploadToIPFS(imageBuffer); // Adjusted to use the new IPFS upload logic
 
       const htmlContent = `
       <!DOCTYPE html>
@@ -126,9 +131,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         <head>
           <title>Hey Portal Example</title>
           <meta property="og:title" content="Hey Portal Example" />
-          <meta property="og:image" content="${ensListImageUrl}" />
+          <meta property="og:image" content="${ipfsImageUrl}" />
           <meta property="hey:portal" content="v1.0.0" />
-          <meta property="hey:portal:image" content="${ensListImageUrl}" />
+          <meta property="hey:portal:image" content="${ipfsImageUrl}" />
           <meta property="hey:portal:post_url" content="https://ens-portal.vercel.app/api/onclick" />
           <meta property="hey:portal:button:1" content="Show My ENS List 3" />
           <meta property="hey:portal:button:1:type" content="submit" />
@@ -140,7 +145,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             <button onClick="handleShowENSList" class="show-ens-list-button">
                 Show My ENS List 2
             </button>
-            <img class="ens-list-image" src="${ensListImageUrl}" alt="ENS List" />
+            <img class="ens-list-image" src="${ipfsImageUrl}" alt="ENS List" />
           </div>
         </body>
       </html>
